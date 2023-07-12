@@ -23,10 +23,12 @@ const TodoForm = () => {
   const handlSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (id) {
-      updateTodo({title, value, email: email!, id, completed});
-    } else {
-      createTodo({title, value, email: email!});
+    if (title.trim() && value.trim()) {
+      if (id) {
+        updateTodo({title: title.trim(), value: value.trim(), email: email!, id, completed});
+      } else {
+        createTodo({title: title.trim(), value: value.trim(), email: email!});
+      }
     }
 
     dispatch(reset());
