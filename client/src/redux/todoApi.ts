@@ -17,7 +17,14 @@ export const todoApi = createApi({
         body: {...data},
       }),
     }),
+    getAllTodo: builder.query<ICompletedTodo[], {email: string}>({
+      query: (data) => ({
+        url: '/getall',
+        method: 'POST',
+        body: {...data},
+      }),
+    }),
   }),
 });
 
-export const {useCreateTodoMutation} = todoApi;
+export const {useCreateTodoMutation, useGetAllTodoQuery} = todoApi;

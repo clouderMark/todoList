@@ -13,12 +13,24 @@ class User {
     }
 
     if ('todo' in user) {
-      user.todo.push({title, value, completed: false})
+      user.todo.push({ title, value, completed: false });
     } else {
       user.todo = [{ title, value, completed: false }];
     }
 
-    return {title, value, completed: false};
+    return { title, value, completed: false };
+  }
+
+  getAll(data) {
+    const { email } = data;
+
+    const user = TodoMapping.find((el) => el.email === email);
+
+    if (!('todo' in user)) {
+      user.todo = [];
+    }
+
+    return user.todo;
   }
 }
 
