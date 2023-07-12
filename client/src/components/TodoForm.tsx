@@ -27,6 +27,10 @@ const TodoForm = () => {
     setValue(initialState);
   };
 
+  const handleReset = () => {
+    setValue(initialState);
+  };
+
   useEffect(() => {
     if (isCreateTodoSuccess) {
       dispatch(handleAlert({message: `${newTodoData!.title} успешно добавлена`, statusCode: 201}));
@@ -59,9 +63,12 @@ const TodoForm = () => {
           size="small"
         />
       </Box>
-      <Box>
+      <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
         <Button variant="outlined" type="submit">
           Сохранить
+        </Button>
+        <Button onClick={handleReset} variant='outlined' color='warning'>
+          Сбросить
         </Button>
       </Box>
     </Box>
