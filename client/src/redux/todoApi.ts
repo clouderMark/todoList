@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolkit/query/react';
-import {ICustomError, ITokenWithEmail, ICompletedTodo} from '../types/types';
+import {ICustomError, ITodoWithEmail, ICompletedTodo} from '../types/types';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -10,7 +10,7 @@ export const todoApi = createApi({
     credentials: 'include',
   }) as BaseQueryFn<string | FetchArgs, unknown, ICustomError, {}>,
   endpoints: (builder) => ({
-    createTodo: builder.mutation<ICompletedTodo, ITokenWithEmail>({
+    createTodo: builder.mutation<ICompletedTodo, ITodoWithEmail>({
       query: (data) => ({
         url: '/create',
         method: 'POST',

@@ -32,7 +32,7 @@ const TodoList = () => {
   return (
     <Box sx={{mt: 2}}>
       {isSuccess && todos.length ? todos.map((todo) => (
-        <Box>
+        <Box key={todo.id}>
           <Typography>{todo.title}</Typography>
           <Typography>{todo.value}</Typography>
         </Box>

@@ -10,10 +10,11 @@ export interface ITodo {
   value: string;
 }
 
-export interface ITokenWithEmail extends ITodo {
+export interface ITodoWithEmail extends ITodo {
   email: string;
 }
 
 export interface ICompletedTodo extends ITodo {
   completed: boolean;
+  id: string;
 }

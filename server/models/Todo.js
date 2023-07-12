@@ -1,5 +1,6 @@
 import AppError from '../errors/AppError.js';
 import { data } from './data.js';
+import { v4 as uuid } from 'uuid';
 
 const TodoMapping = data;
 
@@ -12,13 +13,15 @@ class User {
       throw new Error('Пользователь не существует');
     }
 
+    const newTodo = { title, value, completed: false, id: uuid() };
+
     if ('todo' in user) {
-      user.todo.push({ title, value, completed: false });
+      user.todo.push(newTodo);
     } else {
-      user.todo = [{ title, value, completed: false }];
+      user.todo = [newTodo];
     }
 
-    return { title, value, completed: false };
+    return newTodo;
   }
 
   getAll(data) {
