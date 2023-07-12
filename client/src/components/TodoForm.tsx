@@ -5,6 +5,7 @@ import {useCreateTodoMutation} from '../redux/todoApi';
 import {handleAlert} from '../redux/alertSlice';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/userSlice';
+import {setTodo} from '../redux/todoSlice';
 
 const initialState: ITodo = {
   title: '',
@@ -34,6 +35,7 @@ const TodoForm = () => {
   useEffect(() => {
     if (isCreateTodoSuccess) {
       dispatch(handleAlert({message: `${newTodoData!.title} успешно добавлена`, statusCode: 201}));
+      dispatch(setTodo({todos: [newTodoData!]}));
     }
   }, [isCreateTodoSuccess]);
 
@@ -67,7 +69,7 @@ const TodoForm = () => {
         <Button variant="outlined" type="submit">
           Сохранить
         </Button>
-        <Button onClick={handleReset} variant='outlined' color='warning'>
+        <Button onClick={handleReset} variant="outlined" color="warning">
           Сбросить
         </Button>
       </Box>
