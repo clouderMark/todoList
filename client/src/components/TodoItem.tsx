@@ -1,10 +1,10 @@
 import {MouseEvent, useEffect} from 'react';
-import {Box, Card, CardContent, IconButton, Typography} from '@mui/material';
+import {Box, Button, Card, CardContent, IconButton, Typography} from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {removeTodo, selectTodo} from '../redux/todoSlice';
+import {removeTodo, selectTodo, setTodo} from '../redux/todoSlice';
 import {setItem} from '../redux/todoFormSlice';
-import {useDeleteTodoMutation} from '../redux/todoApi';
+import {useDeleteTodoMutation, useUpdateTodoMutation} from '../redux/todoApi';
 import {selectUser} from '../redux/userSlice';
 import {handleAlert} from '../redux/alertSlice';
 
@@ -18,9 +18,19 @@ const TodoItem = (props: IProps) => {
   const [deleteTodo, {isSuccess, isError, error}] = useDeleteTodoMutation();
   const {email} = useAppSelector(selectUser);
 
+  const [
+    updateTodo,
+    {
+      data: updatedTodoData,
+      isSuccess: isUpdatedTodoSuccess,
+      isError: isUpdatedTodoError,
+      error: updatedDataError,
+    },
+  ] = useUpdateTodoMutation();
+
   const handleClick = () => {
     if (todo) {
-      dispatch(removeTodo({id: todo.id}));
+      dispatch(removeTodo({id: todo.id!}));
       dispatch(setItem({item: todo}));
     }
   };
@@ -28,10 +38,17 @@ const TodoItem = (props: IProps) => {
   const deleteClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (todo) {
-      deleteTodo({id: todo!.id, email: email!});
+      deleteTodo({id: todo.id!, email: email!});
       setTimeout(() => {
-        dispatch(removeTodo({id: todo.id}));
+        dispatch(removeTodo({id: todo.id!}));
       }, 1000);
+    }
+  };
+
+  const handleChange = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    if (todo) {
+      updateTodo({title: todo.title, value: todo.value, email: email!, id: todo.id, completed: !todo.completed});
     }
   };
 
@@ -47,16 +64,39 @@ const TodoItem = (props: IProps) => {
     }
   }, [isError]);
 
+  useEffect(() => {
+    if (isUpdatedTodoSuccess) {
+      if (todo) {
+        dispatch(removeTodo({id: todo.id!}));
+        dispatch(setTodo({todos: [updatedTodoData!]}));
+      }
+    }
+  }, [isUpdatedTodoSuccess]);
+
+  useEffect(() => {
+    if (isUpdatedTodoError && 'data' in updatedDataError!) {
+      dispatch(handleAlert({message: updatedDataError.data.message, statusCode: updatedDataError.status}));
+    }
+  }, [isUpdatedTodoError]);
+
   return (
     <>
       {todo ? (
-        <Card sx={{mb: 1}} onClick={handleClick}>
+        <Card sx={[todo.completed ? {boxShadow: '0.5px 1px 1px 0.5px tomato'} : {}, {mb: 1}]} onClick={handleClick}>
           <CardContent sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Box>
               <Typography>{todo.title}</Typography>
               <Typography>{todo.value}</Typography>
             </Box>
             <Box>
+              <Button
+                onClick={handleChange}
+                variant="outlined"
+                color={todo.completed ? 'primary' : 'success'}
+                sx={{mr: 1}}
+              >
+                {todo.completed ? 'завершена' : 'В процессе'}
+              </Button>
               <IconButton onClick={(e) => deleteClick(e)}>
                 <DeleteForeverIcon color="warning" />
               </IconButton>

@@ -37,7 +37,7 @@ class User {
   }
 
   update(data) {
-    const { email, id, title, value } = data;
+    const { email, id, title, value, completed } = data;
 
     const user = TodoMapping.find((el) => el.email === email);
 
@@ -45,6 +45,7 @@ class User {
     if (todo) {
       todo.title = title;
       todo.value = value;
+      todo.completed = completed;
     }
 
     return todo;

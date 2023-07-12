@@ -1,9 +1,9 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import type {RootState} from './store';
-import {ICompletedTodo} from '../types/types';
+import {ITodo} from '../types/types';
 
 interface IInitialState {
-  todos: ICompletedTodo[];
+  todos: ITodo[];
 }
 
 const initialState: IInitialState = {
@@ -14,7 +14,7 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    setTodo: (state, action: PayloadAction<{todos: ICompletedTodo[]}>) => {
+    setTodo: (state, action: PayloadAction<{todos: ITodo[]}>) => {
       state.todos = [...state.todos, ...action.payload.todos];
     },
     removeTodo: (state, action: PayloadAction<{id: string}>) => {

@@ -33,7 +33,7 @@ const TodoList = () => {
   return (
     <Box sx={{mt: 2}}>
       {isSuccess && todos.length ? todos.map((todo) => (
-        <TodoItem key={todo.id} id={todo.id}/>
+        <TodoItem key={todo.id} id={todo.id!}/>
       )) : 'Cписок задач пуст'}
     </Box>
   );

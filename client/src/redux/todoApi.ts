@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolkit/query/react';
-import {ICustomError, ITodoWithEmail, ICompletedTodo} from '../types/types';
+import {ICustomError, ITodoWithEmail, ITodo} from '../types/types';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -10,21 +10,21 @@ export const todoApi = createApi({
     credentials: 'include',
   }) as BaseQueryFn<string | FetchArgs, unknown, ICustomError, {}>,
   endpoints: (builder) => ({
-    createTodo: builder.mutation<ICompletedTodo, ITodoWithEmail>({
+    createTodo: builder.mutation<ITodo, ITodoWithEmail>({
       query: (data) => ({
         url: '/create',
         method: 'POST',
         body: {...data},
       }),
     }),
-    getAllTodo: builder.query<ICompletedTodo[], {email: string}>({
+    getAllTodo: builder.query<ITodo[], {email: string}>({
       query: (data) => ({
         url: '/getall',
         method: 'POST',
         body: {...data},
       }),
     }),
-    updateTodo: builder.mutation<ICompletedTodo, ITodoWithEmail>({
+    updateTodo: builder.mutation<ITodo, ITodoWithEmail>({
       query: (data) => ({
         url: '/update',
         method: 'PUT',
@@ -32,7 +32,7 @@ export const todoApi = createApi({
       }),
     }),
     deleteTodo: builder.mutation({
-      query: (data: {email: string, id: string}) => ({
+      query: (data: {email: string; id: string}) => ({
         url: '/delete',
         method: 'DELETE',
         body: {...data},

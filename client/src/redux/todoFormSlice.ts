@@ -6,6 +6,7 @@ const initialState: ITodo = {
   title: '',
   value: '',
   id: '',
+  completed: false,
 };
 
 export const todoFormSlice = createSlice({
@@ -24,6 +25,7 @@ export const todoFormSlice = createSlice({
       state.id = el.id;
       state.title = el.title;
       state.value = el.value;
+      state.completed = el.completed;
     },
     reset: () => initialState,
   },

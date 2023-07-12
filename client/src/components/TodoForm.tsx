@@ -18,13 +18,13 @@ const TodoForm = () => {
     {data: updatedTodoData, isSuccess: isUpdatedTodoSuccess, isError: isUpdatedTodoError, error: updatedDataError},
   ] = useUpdateTodoMutation();
   const {email} = useAppSelector(selectUser);
-  const {title, value, id} = useAppSelector(selectTodoForm);
+  const {title, value, id, completed} = useAppSelector(selectTodoForm);
 
   const handlSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (id) {
-      updateTodo({title, value, email: email!, id});
+      updateTodo({title, value, email: email!, id, completed});
     } else {
       createTodo({title, value, email: email!});
     }
