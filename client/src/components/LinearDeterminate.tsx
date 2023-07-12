@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {Box, LinearProgress} from '@mui/material/';
+import {useSelector} from 'react-redux';
+import {selectLoader} from '../redux/loaderSlice';
 
 const LinearDeterminate = () => {
+  const {isOpen} = useSelector(selectLoader);
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
@@ -23,19 +26,23 @@ const LinearDeterminate = () => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        '& .MuiLinearProgress-colorPrimary': {
-          backgroundColor: 'transparent',
-        },
-        '& .MuiLinearProgress-barColorPrimary': {
-          backgroundColor: 'tomato',
-        },
-      }}
-    >
-      <LinearProgress variant="determinate" value={progress} />
-    </Box>
+    <>
+      {isOpen ? (
+        <Box
+          sx={{
+            width: '100%',
+            '& .MuiLinearProgress-colorPrimary': {
+              backgroundColor: 'transparent',
+            },
+            '& .MuiLinearProgress-barColorPrimary': {
+              backgroundColor: 'tomato',
+            },
+          }}
+        >
+          <LinearProgress variant="determinate" value={progress} />
+        </Box>
+      ) : null}
+    </>
   );
 };
 

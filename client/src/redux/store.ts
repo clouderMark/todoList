@@ -3,6 +3,7 @@ import {userApi} from './userApi';
 import {userSlice} from './userSlice';
 import {alertSlice} from './alertSlice';
 import {todoApi} from './todoApi';
+import {loaderSlice} from './loaderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     alert: alertSlice.reducer,
     [todoApi.reducerPath]: todoApi.reducer,
+    loader: loaderSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userApi.middleware).concat(todoApi.middleware),
 });
