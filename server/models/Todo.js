@@ -49,6 +49,16 @@ class User {
 
     return todo;
   }
+
+  delete(data) {
+    const { email, id } = data;
+
+    const user = TodoMapping.find((el) => el.email === email);
+
+    user.todo = user.todo.filter((el) => el.id !== id)
+
+    return {id};
+  }
 }
 
 export default new User();

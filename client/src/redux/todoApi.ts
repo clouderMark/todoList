@@ -31,7 +31,14 @@ export const todoApi = createApi({
         body: {...data},
       }),
     }),
+    deleteTodo: builder.mutation({
+      query: (data: {email: string, id: string}) => ({
+        url: '/delete',
+        method: 'DELETE',
+        body: {...data},
+      }),
+    }),
   }),
 });
 
-export const {useCreateTodoMutation, useGetAllTodoQuery, useUpdateTodoMutation} = todoApi;
+export const {useCreateTodoMutation, useGetAllTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation} = todoApi;

@@ -49,6 +49,22 @@ class Todo {
       next(AppError.badRequest(e.message));
     }
   }
+
+  delete(req, res, next) {
+    try {
+      const { email, id } = req.body;
+
+      if (!email || !id) {
+        throw new Error('Чего-то не хватает');
+      }
+
+      const deletedTodoId = TodoModel.delete(req.body);
+
+      res.json(deletedTodoId);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new Todo();
