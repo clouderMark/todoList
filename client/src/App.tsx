@@ -8,6 +8,7 @@ import {login, logout, getToken, selectUser} from './redux/userSlice';
 import AlertLine from './components/AlertLine/AlertLine';
 import Loader from './components/LinearDeterminate';
 import {closeLoader, setShowLoader} from './redux/loaderSlice';
+import NavBar from './components/NavBar';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +45,7 @@ const App = () => {
     <BrowserRouter>
       <CssBaseline />
       <Loader />
+      <NavBar />
       <AppRouter />
       <AlertLine />
     </BrowserRouter>
