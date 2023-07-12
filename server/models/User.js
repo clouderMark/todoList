@@ -1,7 +1,7 @@
 import AppError from '../errors/AppError.js';
+import { data } from './data.js';
 
-const UserMapping = [
-];
+const UserMapping = data;
 
 class User {
   getByEmail(email) {

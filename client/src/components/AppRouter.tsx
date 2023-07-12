@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import Login from '../views/Login';
 import NotFound from '../views/NotFound';
+import Todolist from '../views/Todolist';
 import {EPath} from '../enums/EPath';
 import {useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/userSlice';
@@ -21,7 +22,9 @@ const publicRoutes: IRoute[] = [
   {[ERoute.Path]: EPath.NotFound, [ERoute.Component]: NotFound},
 ];
 
-const authRoutes: IRoute[] = [];
+const authRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.TodoList, [ERoute.Component]: Todolist},
+];
 
 const adminRoutes: IRoute[] = [];
 
