@@ -1,10 +1,11 @@
 import {useEffect} from 'react';
-import {Box, Typography} from '@mui/material';
+import {Box} from '@mui/material';
 import {useGetAllTodoQuery} from '../redux/todoApi';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/userSlice';
 import {closeLoader, setShowLoader} from '../redux/loaderSlice';
 import {selectTodo, setTodo} from '../redux/todoSlice';
+import TodoItem from './TodoItem';
 
 const TodoList = () => {
   const {email} = useAppSelector(selectUser);
@@ -32,10 +33,7 @@ const TodoList = () => {
   return (
     <Box sx={{mt: 2}}>
       {isSuccess && todos.length ? todos.map((todo) => (
-        <Box key={todo.id}>
-          <Typography>{todo.title}</Typography>
-          <Typography>{todo.value}</Typography>
-        </Box>
+        <TodoItem key={todo.id} id={todo.id}/>
       )) : 'Cписок задач пуст'}
     </Box>
   );

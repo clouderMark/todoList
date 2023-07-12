@@ -5,6 +5,7 @@ import {alertSlice} from './alertSlice';
 import {todoApi} from './todoApi';
 import {loaderSlice} from './loaderSlice';
 import {todoSlice} from './todoSlice';
+import {todoFormSlice} from './todoFormSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     [todoApi.reducerPath]: todoApi.reducer,
     todo: todoSlice.reducer,
     loader: loaderSlice.reducer,
+    todoForm: todoFormSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userApi.middleware).concat(todoApi.middleware),
 });

@@ -35,6 +35,20 @@ class User {
 
     return user.todo;
   }
+
+  update(data) {
+    const { email, id, title, value } = data;
+
+    const user = TodoMapping.find((el) => el.email === email);
+
+    const todo = user.todo.find((el) => el.id === id)
+    if (todo) {
+      todo.title = title;
+      todo.value = value;
+    }
+
+    return todo;
+  }
 }
 
 export default new User();

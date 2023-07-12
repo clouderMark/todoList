@@ -8,6 +8,7 @@ export interface ICustomError {
 export interface ITodo {
   title: string;
   value: string;
+  id?: string;
 }
 
 export interface ITodoWithEmail extends ITodo {

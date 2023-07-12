@@ -33,6 +33,22 @@ class Todo {
       next(AppError.badRequest(e.message));
     }
   }
+
+  update(req, res, next) {
+    try {
+      const { email, id, title, value } = req.body;
+
+      if (!email || !id || !title || !value) {
+        throw new Error('Чего-то не хватает');
+      }
+
+      const newTodo = TodoModel.update(req.body);
+
+      res.json(newTodo);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new Todo();
