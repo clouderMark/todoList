@@ -20,8 +20,9 @@ export const todoSlice = createSlice({
     removeTodo: (state, action: PayloadAction<{id: string}>) => {
       state.todos = [...state.todos.filter((item) => item.id !== action.payload.id)];
     },
+    reset: () => initialState,
   },
 });
 
 export const selectTodo = (state: RootState) => state.todo;
-export const {setTodo, removeTodo} = todoSlice.actions;
+export const {setTodo, removeTodo, reset} = todoSlice.actions;
