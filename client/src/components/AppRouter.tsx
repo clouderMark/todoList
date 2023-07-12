@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import Login from '../views/Login';
+import Login from '../views/Login/Login';
 import NotFound from '../views/NotFound';
 import Todolist from '../views/Todolist';
 import {EPath} from '../enums/EPath';
