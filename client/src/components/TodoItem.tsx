@@ -3,7 +3,7 @@ import {Box, Button, Card, CardContent, IconButton, Typography} from '@mui/mater
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {removeTodo, selectTodo, setTodo} from '../redux/todoSlice';
-import {setItem} from '../redux/todoFormSlice';
+import {selectTodoForm, setItem} from '../redux/todoFormSlice';
 import {useDeleteTodoMutation, useUpdateTodoMutation} from '../redux/todoApi';
 import {selectUser} from '../redux/userSlice';
 import {handleAlert} from '../redux/alertSlice';
@@ -17,21 +17,20 @@ const TodoItem = (props: IProps) => {
   const dispatch = useAppDispatch();
   const [deleteTodo, {isSuccess, isError, error}] = useDeleteTodoMutation();
   const {email} = useAppSelector(selectUser);
+  const {id, title, value, completed} = useAppSelector(selectTodoForm);
 
   const [
     updateTodo,
-    {
-      data: updatedTodoData,
-      isSuccess: isUpdatedTodoSuccess,
-      isError: isUpdatedTodoError,
-      error: updatedDataError,
-    },
+    {data: updatedTodoData, isSuccess: isUpdatedTodoSuccess, isError: isUpdatedTodoError, error: updatedDataError},
   ] = useUpdateTodoMutation();
 
   const handleClick = () => {
     if (todo) {
       dispatch(removeTodo({id: todo.id!}));
       dispatch(setItem({item: todo}));
+      if (id) {
+        dispatch(setTodo({todos: [{id: id!, title, value, completed: completed!}]}));
+      }
     }
   };
 
